@@ -1,17 +1,18 @@
 #include <iostream>
-#include <unistd.h>
 #include "field.hpp"
 using namespace std;
 
 int main()
 {
-	Field field(8, 16);
+	cout << "\e[1;1H\e[2J";
+	Field field(16, 8);
 	unsigned timer = 0;
-	while (timer ++< 200)
+	while (timer < 200)
 	{
 		field.iterate();
 		field.draw();
-		cout << timer;
+		cout << "\e[0m" << ++timer << "\e[1;1H\e[2J";
 	}
+	cout << "\e[1;1H\e[2J";
 	return 0;
 }
