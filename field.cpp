@@ -38,7 +38,7 @@ void Field::draw()
 					dots[k].draw();
 			cout << "\e[0m  ";
 		}
-		cout << endl;
+		cout << "\n  ";
 	}
 }
 
