@@ -2,7 +2,7 @@
 
 The use of this project is dictated be its __LICENSE__ file.
 
-This project is a cool scene in which a collecion of coloured dots move about in a *seemingly* random manner.
+This project is a cool scene in which a collection of coloured dots move about in a *seemingly* random manner.
 There is actually *some manipulation* done to make groups of dots act the **same way**.
 
 ## How the dots move
@@ -42,7 +42,7 @@ Only 8 chars are used, each representing a different colour.
 - `short direc[5]`, which stores the key numbers for the dot.
 - `void draw()`, a method that prints the dot to the screen.
 
-The contructor requires only the key numbers and the colour character.
+The constructor requires only the key numbers and the colour character.
 
 ## `Field` Class
 
@@ -53,7 +53,7 @@ The `Field` Class has the following properties and methods:
 - `vector<vector<unsigned> > coords`, which stores the coordinates of the `Dot`s.
 - `void draw()`, a method that iterates through each coordinate while moving the cursor.
 At each coordinate, it checks if there is a dot there, and if so, draws it.
-- `void iterate()`, a methof that moves all the dots according to the *afformentioned rules*, and triggers a **0.275 second pause**.
+- `void iterate()`, a method that moves all the dots according to the *aforementioned rules*, and triggers a **0.275 second pause**.
 
 ## In Use:
 
