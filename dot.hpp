@@ -8,6 +8,6 @@ class Dot
 	static char* colours[8];
 public:
 	short direc[5];
-	void draw(unsigned, unsigned);
+	void draw();
 	Dot(char, short [5]);
 };

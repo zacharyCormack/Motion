@@ -12,14 +12,10 @@ Field::Field(unsigned side_length, unsigned num_dots)
 	srand((unsigned)time(NULL));
 	while (num_dots-->0)
 	{
-		short direction[5];
-		short nums[] = {1, 2, 3, 4, 5, 0};
-		for (short i = 0; i < 5; i++)
-		{
-			short tmp = rand() % 5-i;
-			direction[i] = tmp;
-			pull(nums, tmp);
-		}
+		int start = rand();
+		short step = rand()%4+1;
+		short direction[] = {start%5+1, (start+step)%5+1, (start+2*step)%5+1, (start+3*step)%5+1, (start+4*step)%5+1};
+		cout << start%5+1 << " " << (start+step)%5+1 << " " << (start+2*step)%5+1 << " " << (start+3*step)%5+1 << " " << (start+4*step)%5+1 << endl;
 		Dot new_dot((char)(rand()%8), direction);
 		dots.push_back(new_dot);
 		vector<unsigned> new_coord;
@@ -27,16 +23,28 @@ Field::Field(unsigned side_length, unsigned num_dots)
 		new_coord.push_back(rand()%side);
 		coords.push_back(new_coord);
 	}
+	cin.ignore();
+	cout << "\e[H";
 }
 
 void Field::draw()
 {
-	for (unsigned i = 0; i < dots.size(); i++)
-		dots[i].draw(coords[i][0], coords[i][1]);
+	for (unsigned i = 0; i < side; i++)
+	{
+		for (unsigned j = 0; j < side; j++)
+		{
+			for (unsigned k = 0; k < coords.size(); k++)
+				if (coords[k][0] == i && coords[k][1] == j)
+					dots[k].draw();
+			cout << "\e[0m  ";
+		}
+		cout << endl;
+	}
 }
 
 void Field::iterate()
 {
+	usleep(275000);
 	unsigned die = rand()%5;
 	const int facs[] = {24, 6, 2, 1, 1};
 	for (unsigned i = 0; i < dots.size(); i++)
@@ -51,11 +59,10 @@ void Field::iterate()
 			dots[i].direc[0] = swp;
 		}
 		else
-			coords[i][dots[i].direc[die] < 2 ? 1 : 0] += dots[i].direc[die]%2==0 ? 1 : -1;
-		if (coords[i][dots[i].direc[die] < 2 ? 1 : 0] > side)
-			coords[i][dots[i].direc[die] < 2 ? 1 : 0] = side;
-		else if (coords[i][dots[i].direc[die] < 2 ? 1 : 0] < 0)
-			coords[i][dots[i].direc[die] < 2 ? 1 : 0] = 0;
+		{
+			unsigned dir = dots[i].direc[die];
+			unsigned* coord = &(coords[i][dir < 2 ? 1 : 0]);
+			*coord += dir%2==0 ? (*coord<side-1 ? 1 : 0) : (*coord>0 ? -1 : 0);
+		}
 	}
-	usleep(1000000);
 }

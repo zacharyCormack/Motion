@@ -10,9 +10,9 @@ Dot::Dot(char colour_ID, short direction[5])
 	direc[4] = direction[4];
 }
 
-void Dot::draw(unsigned x, unsigned y)
+void Dot::draw()
 {
-	cout << "\e[" << x << ';' << y+3 << 'H' << colours[colour];
+	cout << colours[colour];
 }
 
 char* Dot::colours[8] =
