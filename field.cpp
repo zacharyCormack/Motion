@@ -49,20 +49,32 @@ void Field::iterate()
 	const int facs[] = {24, 6, 2, 1, 1};
 	for (unsigned i = 0; i < dots.size(); i++)
 	{
-		if (dots[i].direc[die] == 5)
+		switch(dots[i].direc[die])
 		{
+		case 1:
+			if (coords[i][1] != 0)
+				coords[i][1]--;
+			break;
+		case 2:
+			if (coords[i][1] < side-1)
+				coords[i][1]++;
+			break;
+		case 3:
+			if (coords[i][0] != 0)
+				coords[i][0]--;
+			break;
+		case 4:
+			if (coords[i][0] < side-1)
+				coords[i][0]++;
+			break;
+		default:
 			int swp = dots[i].direc[4];
 			dots[i].direc[4] = dots[i].direc[3];
 			dots[i].direc[3] = dots[i].direc[2];
 			dots[i].direc[2] = dots[i].direc[1];
 			dots[i].direc[1] = dots[i].direc[0];
 			dots[i].direc[0] = swp;
-		}
-		else
-		{
-			unsigned dir = dots[i].direc[die];
-			unsigned* coord = &(coords[i][dir < 2 ? 1 : 0]);
-			*coord += dir%2==0 ? (*coord<side-1 ? 1 : 0) : (*coord>0 ? -1 : 0);
+			break;
 		}
 	}
 }
